@@ -20,9 +20,11 @@ public final class Normal extends Categorie {
               if(heure <= 8){
                   indemnite_h_supp = getSalaire_par_semaine() * 0.3;
                   salaire_semaine_normal += indemnite_h_supp;
+                  return "heure supplementaire = "+heure+", indemnite = "+ indemnite_h_supp+", salaire par semaine = "+salaire_semaine_normal;
               }else if(heure >= 12){
                   indemnite_h_supp = getSalaire_par_semaine() * 0.5;
                   salaire_semaine_normal += indemnite_h_supp;
+                  return "heure supplementaire = "+heure+", indemnite = "+ indemnite_h_supp+", salaire par semaine = "+salaire_semaine_normal;
               }
         }
         return ("vous avez fait plus de 20h par semaine , -> 0 indemnite");
