@@ -1,5 +1,7 @@
 package org.example.model.employe.salary;
 
+import org.example.model.employe.Employee;
+
 public class Salary {
     private final double grossSalary;
     private double netSalary;

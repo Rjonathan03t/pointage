@@ -62,10 +62,10 @@ public class CalendarWork {
         int totalHour = calculateHourOfWorkOfGuardian(employee);
         Salary totalSalary = new Salary(employee.getSalaryAmount().getGrossSalary());
         double normalSalary = employee.getSalaryAmount().getGrossSalary();
-        if(totalHour == 240 && !employee.isWorkerLate()){
+        if(totalHour == 300 && !employee.isWorkerLate()){
             normalSalary = totalSalary.getGrossSalary();
-        }else if (totalHour == 240 && employee.isWorkerLate()){
-            normalSalary = normalSalary * 0.3;
+        }else if (totalHour == 420 && employee.isWorkerLate()){
+            normalSalary = normalSalary * 1.3;
         }
         System.out.println(normalSalary);
         return normalSalary;
