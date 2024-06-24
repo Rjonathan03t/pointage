@@ -34,6 +34,17 @@ public class CalendarWork {
         return month;
     }
 
+    public int calculateHourOfWorkOfGuardian(Employee employee){
+        int totalHourMonth = 0;
+        int normalWorkHourPerDay = employee.getCategory().getNormalWorkingHour();
+        completMonthOfJune();
+        for(LocalDate date: month){
+             totalHourMonth += normalWorkHourPerDay;
+        }
+        System.out.println(totalHourMonth);
+        return totalHourMonth;
+    }
+
     public boolean isWeekEnd(LocalDate day) {
         DayOfWeek dayOfWeek = day.getDayOfWeek();
         DayOfWeek saturday = DayOfWeek.SATURDAY;

@@ -7,10 +7,11 @@ public final class Guardian extends Category {
         super(name, normalWorkingHour, salaryPerWeek,compensation);
     }
     public Guardian(String name){
-        this(name,56,110000,0);
+        this(name,8,110000,0);
     }
     @Override
     public String additionalHour(int heure) {
         throw new NotImplemented();
     }
+
 }

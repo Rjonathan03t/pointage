@@ -1,5 +1,6 @@
 package org.example.model.employe;
 
+import org.example.model.employe.category.Category;
 import org.example.model.employe.salary.Salary;
 
 public class Employee {
@@ -9,7 +10,7 @@ public class Employee {
     private final String hiringDate;
     private String endDateOfContract;
     private Salary salaryAmount;
-    private String category;
+    private Category category;
 
     public Employee(String fullName,
                     int serialNumber,
@@ -17,7 +18,7 @@ public class Employee {
                     String hiringDate,
                     String endDateOfContract,
                     Salary salaryAmount,
-                    String category) {
+                    Category category) {
         this.fullName = fullName;
         this.serialNumber = serialNumber;
         this.dateOfBirth = dateOfBirth;
@@ -51,7 +52,7 @@ public class Employee {
         return salaryAmount;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
