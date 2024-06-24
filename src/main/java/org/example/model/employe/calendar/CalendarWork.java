@@ -12,15 +12,16 @@ public class CalendarWork {
     private List<LocalDate> normalEmployeeWorkMonth;
     private List<LocalDate> publicHoliday;
     private Employee employee;
+    private List<LocalDate> week;
 
     public CalendarWork(List<LocalDate> month, List<LocalDate> publicHoliday,List<LocalDate>normalEmployeeWorkMonth) {
         this.month = month;
         this.normalEmployeeWorkMonth = normalEmployeeWorkMonth;
         this.publicHoliday = publicHoliday;
+        this.week = new ArrayList<>();
     }
 
     public List<LocalDate> completMonthOfJune() {
-        List<LocalDate> week = new ArrayList<>();
         LocalDate beginningOfTheMonth = LocalDate.of(2024, 6, 1);
         LocalDate endOfTheMonth = beginningOfTheMonth.withDayOfMonth(beginningOfTheMonth.lengthOfMonth());
         for (LocalDate date = beginningOfTheMonth; !date.isAfter(endOfTheMonth); date = date.plusDays(1)) {
@@ -29,17 +30,20 @@ public class CalendarWork {
                 month.add(date);
             }else if(isWeekEnd(date)){
                 week.add(date);
-            }else
                 month.add(date);
+            }
             if(isHoliday(date)){
                 publicHoliday.add(date);
             }
         }
+        return month;
+    }
+
+    public void showMonth(){
+        completMonthOfJune();
         System.out.println("all month : "+ month);
         System.out.println("holiday in this month : "+ publicHoliday);
         System.out.println("week in this month : "+week);
-
-        return month;
     }
 
     public int calculateHourOfWorkOfGuardian(Employee employee){
@@ -49,7 +53,7 @@ public class CalendarWork {
         for(LocalDate date: month){
              totalHourMonth += normalWorkHourPerDay;
         }
-        System.out.println(totalHourMonth);
+        System.out.println("total of working hour : "+totalHourMonth+"h");
         return totalHourMonth;
     }
 
