@@ -2,7 +2,7 @@ package org.example.model.employe;
 
 import org.example.model.employe.salary.Salary;
 
-public class Employe {
+public class Employee {
     private final String fullName;
     private final int serialNumber;
     private final String dateOfBirth;
@@ -11,13 +11,13 @@ public class Employe {
     private Salary salaryAmount;
     private String category;
 
-    public Employe(String fullName,
-                   int serialNumber,
-                   String dateOfBirth,
-                   String hiringDate,
-                   String endDateOfContract,
-                   Salary salaryAmount,
-                   String category) {
+    public Employee(String fullName,
+                    int serialNumber,
+                    String dateOfBirth,
+                    String hiringDate,
+                    String endDateOfContract,
+                    Salary salaryAmount,
+                    String category) {
         this.fullName = fullName;
         this.serialNumber = serialNumber;
         this.dateOfBirth = dateOfBirth;

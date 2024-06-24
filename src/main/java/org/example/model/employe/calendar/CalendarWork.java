@@ -1,29 +1,38 @@
 package org.example.model.employe.calendar;
 
+import org.example.model.employe.Employee;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CalendarWork {
-    private List<LocalDate> month = new ArrayList<>();
+    private List<LocalDate> month ;
+    private List<LocalDate> normalEmployeeWorkMonth;
     private List<LocalDate> publicHoliday  = new ArrayList<>();
+    private Employee employee;
 
-    public CalendarWork(List<LocalDate> month, List<LocalDate> publicHoliday) {
+    public CalendarWork(List<LocalDate> month, List<LocalDate> publicHoliday,List<LocalDate>normalEmployeeWorkMonth) {
         this.month = month;
+        this.normalEmployeeWorkMonth = normalEmployeeWorkMonth;
         publicHoliday.add(LocalDate.of(2024, 6, 17));
         publicHoliday.add(LocalDate.of(2024, 6, 25));
         publicHoliday.add(LocalDate.of(2024, 6, 26));
     }
 
-    public void completMonthOfJune() {
+    public List<LocalDate> completMonthOfJune() {
         LocalDate beginningOfTheMonth = LocalDate.of(2024, 6, 1);
         LocalDate endOfTheMonth = beginningOfTheMonth.withDayOfMonth(beginningOfTheMonth.lengthOfMonth());
         for (LocalDate date = beginningOfTheMonth; !date.isAfter(endOfTheMonth); date = date.plusDays(1)) {
+            if(!isWeekEnd(date)){
+                normalEmployeeWorkMonth.add(date);
+                month.add(date);
+            }else
             month.add(date);
         }
+        return month;
     }
-
 
     public boolean isWeekEnd(LocalDate day) {
         DayOfWeek dayOfWeek = day.getDayOfWeek();
