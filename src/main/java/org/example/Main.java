@@ -16,12 +16,14 @@ public class Main {
         List<LocalDate> holiday = new ArrayList<>();
         List<LocalDate> normalEmployeeWorkMonth = new ArrayList<>();
         Salary rakotoSalary = new Salary(3000);
-        Category guardian = new Guardian("Guardian",8,1000,0);
-        Employee rakoto = new Employee("Rakoto",1,"2003-08-07","2024-05-05","2027-05-05",rakotoSalary,guardian,false);
+        Employee rakoto = new Employee("Rakoto",1,"2003-08-07","2024-05-05","2027-05-05",rakotoSalary,false);
+        Employee rabe = new Employee("Rabe",2,"2003-08-07","2024-05-05","2027-05-05",rakotoSalary,true);
+        Guardian guardian = new Guardian("Guardian",rakoto);
+        rakoto.setCategory(guardian);
         CalendarWork calendarWork = new CalendarWork(june,holiday,normalEmployeeWorkMonth);
         /**calendarWork.calculateHourOfWorkOfGuardian(rakoto);*/
         calendarWork.showMonth();
-
+        /**calendarWork.salaryAmount(rakoto);*/
         }
     }
 

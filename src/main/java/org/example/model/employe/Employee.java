@@ -13,13 +13,13 @@ public class Employee {
     private Category category;
     private boolean workerLate;
 
+
     public Employee(String fullName,
                     int serialNumber,
                     String dateOfBirth,
                     String hiringDate,
                     String endDateOfContract,
                     Salary salaryAmount,
-                    Category category,
                     boolean workerLate) {
         this.fullName = fullName;
         this.serialNumber = serialNumber;
@@ -27,28 +27,8 @@ public class Employee {
         this.hiringDate = hiringDate;
         this.endDateOfContract = endDateOfContract;
         this.salaryAmount = salaryAmount;
-        this.category = category;
-        this.workerLate = false;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public int getSerialNumber() {
-        return serialNumber;
-    }
-
-    public String getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public String getHiringDate() {
-        return hiringDate;
-    }
-
-    public String getEndDateOfContract() {
-        return endDateOfContract;
+        this.category = null;
+        this.workerLate = workerLate;
     }
 
     public Salary getSalaryAmount() {
@@ -61,5 +41,9 @@ public class Employee {
     public boolean isWorkerLate(){
         return workerLate;
     }
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
 
 }

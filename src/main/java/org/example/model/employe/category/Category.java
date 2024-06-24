@@ -1,18 +1,20 @@
 package org.example.model.employe.category;
 
+import org.example.model.employe.Employee;
+
 public sealed abstract class Category permits
         Senior,
         Driver,
         Guardian,
         Normal {
     private final String name;
-    private int normalWorkingHour;
+    public int normalWorkingHour;
     public double salaryPerWeek;
     private double compensation;
 
-    public Category(String name, int normalWorkingHour, double salaryPerWeek, double compensation) {
+    public Category(String name, double salaryPerWeek, double compensation) {
         this.name = name;
-        this.normalWorkingHour = normalWorkingHour;
+        this.normalWorkingHour = 0;
         this.salaryPerWeek = salaryPerWeek;
         this.compensation = compensation;
     }
@@ -34,4 +36,6 @@ public sealed abstract class Category permits
     public double getCompensation() {
         return compensation;
     }
+
+    public abstract int getNormalWorkingHour(Employee employee);
 }

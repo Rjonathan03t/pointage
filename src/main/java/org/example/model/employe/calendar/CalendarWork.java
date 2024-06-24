@@ -1,6 +1,7 @@
 package org.example.model.employe.calendar;
 
 import org.example.model.employe.Employee;
+import org.example.model.employe.salary.Salary;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -48,13 +49,26 @@ public class CalendarWork {
 
     public int calculateHourOfWorkOfGuardian(Employee employee){
         int totalHourMonth = 0;
-        int normalWorkHourPerDay = employee.getCategory().getNormalWorkingHour();
+        int normalWorkHourPerDay = employee.getCategory().getNormalWorkingHour(employee);
         completMonthOfJune();
         for(LocalDate date: month){
              totalHourMonth += normalWorkHourPerDay;
         }
         System.out.println("total of working hour : "+totalHourMonth+"h");
         return totalHourMonth;
+    }
+
+    public Double salaryAmount(Employee employee){
+        int totalHour = calculateHourOfWorkOfGuardian(employee);
+        Salary totalSalary = new Salary(employee.getSalaryAmount().getGrossSalary());
+        double normalSalary = employee.getSalaryAmount().getGrossSalary();
+        if(totalHour == 240 && !employee.isWorkerLate()){
+            normalSalary = totalSalary.getGrossSalary();
+        }else if (totalHour == 240 && employee.isWorkerLate()){
+            normalSalary = normalSalary * 0.3;
+        }
+        System.out.println(normalSalary);
+        return normalSalary;
     }
 
     public boolean isWeekEnd(LocalDate day) {
