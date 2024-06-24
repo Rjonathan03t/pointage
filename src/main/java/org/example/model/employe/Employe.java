@@ -1,65 +1,58 @@
 package org.example.model.employe;
 
-import org.example.model.employe.salaire.Salaire;
+import org.example.model.employe.salary.Salary;
 
 public class Employe {
-    private final String nom_complet;
-    private final int numero_matricule;
-    private final String date_de_naissance;
-    private final String date_embauche;
-    private String date_find_de_contrat;
-    private Salaire montant_salaire;
-    private String categorie;
+    private final String fullName;
+    private final int serialNumber;
+    private final String dateOfBirth;
+    private final String hiringDate;
+    private String endDateOfContract;
+    private Salary salaryAmount;
+    private String category;
 
-    public Employe(String nom_complet,
-                   int numero_matricule,
-                   String date_de_naissance,
-                   String date_embauche,
-                   String date_find_de_contrat,
-                   Salaire montant_salaire,
-                   String categorie) {
-        this.nom_complet = nom_complet;
-        this.numero_matricule = numero_matricule;
-        this.date_de_naissance = date_de_naissance;
-        this.date_embauche = date_embauche;
-        this.date_find_de_contrat = date_find_de_contrat;
-        this.montant_salaire = montant_salaire;
-        this.categorie = categorie;
+    public Employe(String fullName,
+                   int serialNumber,
+                   String dateOfBirth,
+                   String hiringDate,
+                   String endDateOfContract,
+                   Salary salaryAmount,
+                   String category) {
+        this.fullName = fullName;
+        this.serialNumber = serialNumber;
+        this.dateOfBirth = dateOfBirth;
+        this.hiringDate = hiringDate;
+        this.endDateOfContract = endDateOfContract;
+        this.salaryAmount = salaryAmount;
+        this.category = category;
     }
 
-    public String getNom_complet() {
-        return nom_complet;
+    public String getFullName() {
+        return fullName;
     }
 
-    public int getNumero_matricule() {
-        return numero_matricule;
+    public int getSerialNumber() {
+        return serialNumber;
     }
 
-    public String getDate_de_naissance() {
-        return date_de_naissance;
+    public String getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public String getDate_embauche() {
-        return date_embauche;
+    public String getHiringDate() {
+        return hiringDate;
     }
 
-    public String getDate_find_de_contrat() {
-        return date_find_de_contrat;
+    public String getEndDateOfContract() {
+        return endDateOfContract;
     }
 
-    public void setDate_find_de_contrat(String date_find_de_contrat) {
-        this.date_find_de_contrat = date_find_de_contrat;
+    public Salary getSalaryAmount() {
+        return salaryAmount;
     }
 
-    public Salaire getMontant_salaire() {
-        return montant_salaire;
+    public String getCategory() {
+        return category;
     }
 
-    public String getCategorie() {
-        return categorie;
-    }
-
-    public void setCategorie(String categorie) {
-        this.categorie = categorie;
-    }
 }
