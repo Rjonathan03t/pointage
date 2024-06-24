@@ -11,6 +11,7 @@ public class Employee {
     private String endDateOfContract;
     private Salary salaryAmount;
     private Category category;
+    private boolean workerLate;
 
     public Employee(String fullName,
                     int serialNumber,
@@ -18,7 +19,8 @@ public class Employee {
                     String hiringDate,
                     String endDateOfContract,
                     Salary salaryAmount,
-                    Category category) {
+                    Category category,
+                    boolean workerLate) {
         this.fullName = fullName;
         this.serialNumber = serialNumber;
         this.dateOfBirth = dateOfBirth;
@@ -26,6 +28,7 @@ public class Employee {
         this.endDateOfContract = endDateOfContract;
         this.salaryAmount = salaryAmount;
         this.category = category;
+        this.workerLate = false;
     }
 
     public String getFullName() {
@@ -54,6 +57,9 @@ public class Employee {
 
     public Category getCategory() {
         return category;
+    }
+    public boolean isWorkerLate(){
+        return workerLate;
     }
 
 }

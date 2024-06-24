@@ -12,15 +12,17 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        List<LocalDate> june = new ArrayList<>();
-        List<LocalDate> holiday = new ArrayList<>();
-        List<LocalDate> normalEmployeeWorkMonth = new ArrayList<>();
+        /**
         Salary rakotoSalary = new Salary(3000);
         Category guardian = new Guardian("Guardian",8,1000,0);
         Employee rakoto = new Employee("Rakoto",1,"2003-08-07","2024-05-05","2027-05-05",rakotoSalary,guardian);
+         calendarWork.calculateHourOfWorkOfGuardian(rakoto);*/
+        List<LocalDate> june = new ArrayList<>();
+        List<LocalDate> holiday = new ArrayList<>();
+        List<LocalDate> normalEmployeeWorkMonth = new ArrayList<>();
         CalendarWork calendarWork = new CalendarWork(june,holiday,normalEmployeeWorkMonth);
-        calendarWork.calculateHourOfWorkOfGuardian(rakoto);
-        /**calendarWork.completMonthOfJune();*/
+
+        calendarWork.completMonthOfJune();
 
         }
     }

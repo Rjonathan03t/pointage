@@ -10,27 +10,35 @@ import java.util.List;
 public class CalendarWork {
     private List<LocalDate> month ;
     private List<LocalDate> normalEmployeeWorkMonth;
-    private List<LocalDate> publicHoliday  = new ArrayList<>();
+    private List<LocalDate> publicHoliday;
     private Employee employee;
 
     public CalendarWork(List<LocalDate> month, List<LocalDate> publicHoliday,List<LocalDate>normalEmployeeWorkMonth) {
         this.month = month;
         this.normalEmployeeWorkMonth = normalEmployeeWorkMonth;
-        publicHoliday.add(LocalDate.of(2024, 6, 17));
-        publicHoliday.add(LocalDate.of(2024, 6, 25));
-        publicHoliday.add(LocalDate.of(2024, 6, 26));
+        this.publicHoliday = publicHoliday;
     }
 
     public List<LocalDate> completMonthOfJune() {
+        List<LocalDate> week = new ArrayList<>();
         LocalDate beginningOfTheMonth = LocalDate.of(2024, 6, 1);
         LocalDate endOfTheMonth = beginningOfTheMonth.withDayOfMonth(beginningOfTheMonth.lengthOfMonth());
         for (LocalDate date = beginningOfTheMonth; !date.isAfter(endOfTheMonth); date = date.plusDays(1)) {
             if(!isWeekEnd(date)){
                 normalEmployeeWorkMonth.add(date);
                 month.add(date);
+            }else if(isWeekEnd(date)){
+                week.add(date);
             }else
-            month.add(date);
+                month.add(date);
+            if(isHoliday(date)){
+                publicHoliday.add(date);
+            }
         }
+        System.out.println("all month : "+ month);
+        System.out.println("holiday in this month : "+ publicHoliday);
+        System.out.println("week in this month : "+week);
+
         return month;
     }
 
@@ -55,16 +63,14 @@ public class CalendarWork {
         return false;
     }
 
-    public boolean isHoliday(LocalDate day) {
-        for (LocalDate holiday : publicHoliday) {
+    public boolean isHoliday(LocalDate date) {
             if (
-                    holiday.equals(LocalDate.of(2024, 6, 17)) ||
-                            holiday.equals(LocalDate.of(2024, 6, 25)) ||
-                            holiday.equals(LocalDate.of(2024, 6, 17)
+                    date.equals(LocalDate.of(2024, 6, 17)) ||
+                            date.equals(LocalDate.of(2024, 6, 25)) ||
+                            date.equals(LocalDate.of(2024, 6, 26)
                             )) {
                 return true;
             }
-        }
         return false;
     }
 }
