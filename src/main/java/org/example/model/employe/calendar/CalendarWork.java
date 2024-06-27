@@ -59,7 +59,7 @@ public class CalendarWork {
         return totalHourMonth;
     }
 
-    public Double gaurdianSalaryAmount(Employee employee, IncreasedHour increasedHour) {
+    public double gaurdianSalaryAmount(Employee employee, IncreasedHour increasedHour) {
         int totalHour = calculateHourOfWorkOfGuardian(employee, increasedHour);
         Salary s = new Salary(100000);
         double normalSalary = s.getGrossSalary();
