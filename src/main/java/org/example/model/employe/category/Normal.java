@@ -2,14 +2,13 @@ package org.example.model.employe.category;
 
 import org.example.model.employe.Employee;
 import org.example.model.employe.NotImplemented;
+import org.example.model.employe.increasedTime.IncreasedHour;
+import org.example.model.employe.salary.Salary;
 
 public final class Normal extends Category {
-    public Normal(String name, double salaryPerWeek, double compensation) {
-        super(name, salaryPerWeek,compensation);
+    public Normal(String name, double salaryPerWeek, double compensation,IncreasedHour increasedHour,Salary salary) {
+        super(name, salaryPerWeek,compensation,increasedHour,salary);
         this.normalWorkingHour = getNormalWorkingHour();
-    }
-    public Normal(String nom) {
-        this(nom, 100000, 0);
     }
 
 
@@ -28,11 +27,11 @@ public final class Normal extends Category {
                   return "additional hour = "+hour+", indemnite = "+ compensationAdditionnalHour+", salaire par semaine = "+normalSalaryPerWeek;
               }
         }
-        return ("vous avez fait plus de 20h par semaine , -> 0 indemnite");
+        return ("0 compensation because you have exceed the normal hour");
     }
 
     @Override
-    public int getNormalWorkingHour(Employee employee) {
+    public int getNormalWorkingHour( IncreasedHour increasedHour) {
         throw new NotImplemented();
     }
 }

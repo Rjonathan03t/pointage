@@ -1,6 +1,7 @@
 package org.example.model.employe;
 
 import org.example.model.employe.category.Category;
+import org.example.model.employe.increasedTime.IncreasedHour;
 import org.example.model.employe.salary.Salary;
 
 public class Employee {
@@ -11,7 +12,7 @@ public class Employee {
     private String endDateOfContract;
     private Salary salaryAmount;
     private Category category;
-    private boolean workerLate;
+    private IncreasedHour increasedHour;
 
 
     public Employee(String fullName,
@@ -20,7 +21,7 @@ public class Employee {
                     String hiringDate,
                     String endDateOfContract,
                     Salary salaryAmount,
-                    boolean workerLate) {
+                    IncreasedHour increasedHour) {
         this.fullName = fullName;
         this.serialNumber = serialNumber;
         this.dateOfBirth = dateOfBirth;
@@ -28,7 +29,37 @@ public class Employee {
         this.endDateOfContract = endDateOfContract;
         this.salaryAmount = salaryAmount;
         this.category = null;
-        this.workerLate = workerLate;
+        this.increasedHour = increasedHour;
+    }
+
+    public double salaryIfIncreasedHour(IncreasedHour increasedHour,Salary salaryAmount){
+        double bonus = 0;
+        double salary = salaryAmount.getGrossSalary();
+        if(increasedHour.isNight() && !increasedHour.isSunday() && !increasedHour.isHoliday()){
+             bonus += 0.3;
+             salary += (salary*bonus);
+        }else if (increasedHour.isSunday() && !increasedHour.isNight() && !increasedHour.isHoliday()){
+            bonus += 0.4;
+            salary += (salary*bonus);
+        }else if(increasedHour.isHoliday() && !increasedHour.isNight()&& !increasedHour.isSunday()){
+            bonus += 0.5;
+            salary += (salary*bonus);
+        }else if (increasedHour.isNight() && increasedHour.isSunday() && increasedHour.isHoliday()){
+            bonus += 1.2;
+            salary += (salary*bonus);
+        }else if (increasedHour.isNight() && increasedHour.isSunday() && !increasedHour.isHoliday()){
+            bonus += 0.7;
+            salary += (salary*bonus);
+        }else if (increasedHour.isNight() && !increasedHour.isSunday() && increasedHour.isHoliday()){
+            bonus += 0.8;
+            salary += (salary*bonus);
+        }else if (!increasedHour.isNight() && increasedHour.isSunday() && increasedHour.isHoliday()){
+            bonus += 0.9;
+            salary += (salary*bonus);
+        }else{
+            return salary;
+        }
+        return salary;
     }
 
     public Salary getSalaryAmount() {
@@ -38,9 +69,7 @@ public class Employee {
     public Category getCategory() {
         return category;
     }
-    public boolean isWorkerLate(){
-        return workerLate;
-    }
+
     public void setCategory(Category category) {
         this.category = category;
     }
