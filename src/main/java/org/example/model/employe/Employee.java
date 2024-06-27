@@ -45,5 +45,7 @@ public class Employee {
         this.category = category;
     }
 
-
+    public String getFullName() {
+        return fullName;
+    }
 }

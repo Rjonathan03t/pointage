@@ -14,17 +14,30 @@ import static org.junit.Assert.assertEquals;
 
 public class workingHourTest {
     @Test
-    void createNewPerson() {
+    void workingHourRakoto() {
         List<LocalDate> june = new ArrayList<>();
         List<LocalDate> holiday = new ArrayList<>();
         List<LocalDate> normalEmployeeWorkMonth = new ArrayList<>();
-        Salary guardianSalary = new Salary(100000);
-        Employee rakoto = new Employee("Rakoto",1,"2003-08-07","2024-05-05","2027-05-05",guardianSalary,false);
-        Employee rabe = new Employee("rabe",2,"2002-08-07","2024-02-05","2027-02-05",guardianSalary,true);
-        Guardian guardian = new Guardian("Guardian",rakoto);
-        rakoto.setCategory(guardian);
+        Salary rakotoSalary = new Salary(3000);
+        Employee rakoto = new Employee("Rakoto",1,"2003-08-07","2024-05-05","2027-05-05",rakotoSalary,false);
+        Guardian guardianRakoto = new Guardian("Guardian",rakoto);
+        rakoto.setCategory(guardianRakoto);
         CalendarWork calendarWork = new CalendarWork(june,holiday,normalEmployeeWorkMonth);
+
         assertEquals(300,calendarWork.calculateHourOfWorkOfGuardian(rakoto));
+    }
+
+    @Test
+    void workingHourRabe(){
+        List<LocalDate> june = new ArrayList<>();
+        List<LocalDate> holiday = new ArrayList<>();
+        List<LocalDate> normalEmployeeWorkMonth = new ArrayList<>();
+        Salary rabeSalary = new Salary(3000);
+        Employee rabe = new Employee("Rabe",2,"2003-08-07","2024-05-05","2027-05-05",rabeSalary,true);
+        Guardian guardianRabe = new Guardian("Guardian",rabe);
+        rabe.setCategory(guardianRabe);
+        CalendarWork calendarWork = new CalendarWork(june,holiday,normalEmployeeWorkMonth);
+
         assertEquals(420,calendarWork.calculateHourOfWorkOfGuardian(rabe));
     }
 

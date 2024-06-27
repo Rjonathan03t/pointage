@@ -54,7 +54,7 @@ public class CalendarWork {
         for(LocalDate date: month){
              totalHourMonth += normalWorkHourPerDay;
         }
-        System.out.println("total of working hour : "+totalHourMonth+"h");
+        System.out.println("total of working hour for "+employee.getFullName()+" : "+totalHourMonth+"h");
         return totalHourMonth;
     }
 
