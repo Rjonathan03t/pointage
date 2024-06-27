@@ -107,10 +107,16 @@ public class CalendarWork {
         double normalSalary = salary.getGrossSalary();
         double bonus = salaryBonus / 100000;
         double s = 0;
+        double sWithBonus = 0;
         completeSixWeek();
         for (LocalDate date : month) {
             s += normalSalary/7;
         }
+        if(bonus>0){
+            sWithBonus += s * bonus;
+            System.out.println(sWithBonus);
+            return sWithBonus;
+        }else
         System.out.println(s);
         return s;
     }

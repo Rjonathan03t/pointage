@@ -1,6 +1,5 @@
 package org.example.model.employe.category;
 
-import org.example.model.employe.Employee;
 import org.example.model.employe.NotImplemented;
 import org.example.model.employe.increasedTime.IncreasedHour;
 import org.example.model.employe.salary.Salary;

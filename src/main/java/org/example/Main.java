@@ -17,7 +17,7 @@ public class Main {
         List<LocalDate> holiday = new ArrayList<>();
         List<LocalDate> normalEmployeeWorkMonth = new ArrayList<>();
         Salary rakotoSalary = new Salary(100000);
-        IncreasedHour rabeincreasedHour = new IncreasedHour(false,false,false);
+        IncreasedHour rabeincreasedHour = new IncreasedHour(true,false,false);
         Employee rabe = new Employee("Rabe",2,"2003-08-07","2024-05-05","2027-05-05",rakotoSalary,rabeincreasedHour);
         Guardian guardianRabe = new Guardian("Guardian",rabe,rabeincreasedHour,rakotoSalary);
         rabe.setCategory(guardianRabe);
