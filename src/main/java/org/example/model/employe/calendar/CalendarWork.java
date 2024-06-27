@@ -22,10 +22,10 @@ public class CalendarWork {
         this.week = new ArrayList<>();
     }
 
-    public List<LocalDate> completeSixWeek(){
+    public List<LocalDate> completeSixWeek() {
         LocalDate beginningOfTheMonth = LocalDate.of(2024, 5, 26);
-        LocalDate endOfTheMonth = LocalDate.of(2024,7,6);
-        for(LocalDate date = beginningOfTheMonth; !date.isAfter(endOfTheMonth);date = date.plusDays(1)){
+        LocalDate endOfTheMonth = LocalDate.of(2024, 7, 6);
+        for (LocalDate date = beginningOfTheMonth; !date.isAfter(endOfTheMonth); date = date.plusDays(1)) {
             if (!isWeekEnd(date)) {
                 normalEmployeeWorkMonth.add(date);
                 month.add(date);
@@ -39,6 +39,7 @@ public class CalendarWork {
         }
         return month;
     }
+
     public List<LocalDate> completMonthOfJune() {
         LocalDate beginningOfTheMonth = LocalDate.of(2024, 6, 1);
         LocalDate endOfTheMonth = beginningOfTheMonth.withDayOfMonth(beginningOfTheMonth.lengthOfMonth());
@@ -86,7 +87,7 @@ public class CalendarWork {
         return totalHourMonth;
     }
 
-    public double gaurdianSalaryAmount(Employee employee, IncreasedHour increasedHour,Salary salary) {
+    public double gaurdianSalaryAmount(Employee employee, IncreasedHour increasedHour, Salary salary) {
         int totalHour = calculateHourOfWorkOfGuardian(employee, increasedHour);
         double normalSalary = salary.getGrossSalary();
         double bonus = employee.salaryIfIncreasedHour(increasedHour, salary);
@@ -101,15 +102,17 @@ public class CalendarWork {
         return bonus;
     }
 
-    public double guardianSalarySixWeek(Employee employee, IncreasedHour increasedHour,Salary salary) {
-        double bonus = employee.salaryIfIncreasedHour(increasedHour,salary);
+    public double guardianSalarySixWeek(Employee employee, IncreasedHour increasedHour, Salary salary) {
+        double salaryBonus = employee.salaryIfIncreasedHour(increasedHour, salary);
         double normalSalary = salary.getGrossSalary();
+        double bonus = salaryBonus / 100000;
+        double s = 0;
         completeSixWeek();
         for (LocalDate date : month) {
-                normalSalary += 1428.571;
+            s += normalSalary/7;
         }
-        System.out.println(normalSalary);
-        return normalSalary;
+        System.out.println(s);
+        return s;
     }
 
     public boolean isWeekEnd(LocalDate day) {

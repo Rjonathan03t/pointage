@@ -71,7 +71,7 @@ public class workingHourTest {
         rakoto.setCategory(guardianRakoto);
         CalendarWork calendarWork = new CalendarWork(sixMonths,holiday,normalEmployeeWorkMonth);
 
-        assertEquals(159999.98199999984, calendarWork.guardianSalarySixWeek(rakoto,rabeincreasedHour,rakotoSalary),0.01);
+        assertEquals(599999.9999999998, calendarWork.guardianSalarySixWeek(rakoto,rabeincreasedHour,rakotoSalary),0.01);
     }
 
     @Test
