@@ -13,7 +13,6 @@ public class CalendarWork {
     private List<LocalDate> month;
     private List<LocalDate> normalEmployeeWorkMonth;
     private List<LocalDate> publicHoliday;
-    private Employee employee;
     private List<LocalDate> week;
 
     public CalendarWork(List<LocalDate> month, List<LocalDate> publicHoliday, List<LocalDate> normalEmployeeWorkMonth) {
@@ -59,11 +58,10 @@ public class CalendarWork {
         return totalHourMonth;
     }
 
-    public double gaurdianSalaryAmount(Employee employee, IncreasedHour increasedHour) {
+    public double gaurdianSalaryAmount(Employee employee, IncreasedHour increasedHour,Salary salary) {
         int totalHour = calculateHourOfWorkOfGuardian(employee, increasedHour);
-        Salary s = new Salary(100000);
-        double normalSalary = s.getGrossSalary();
-        double bonus = employee.salaryIfIncreasedHour(increasedHour, s);
+        double normalSalary = salary.getGrossSalary();
+        double bonus = employee.salaryIfIncreasedHour(increasedHour, salary);
         if (totalHour == 300) {
             System.out.println(normalSalary);
             return normalSalary;

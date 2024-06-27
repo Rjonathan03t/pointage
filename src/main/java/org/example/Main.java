@@ -27,7 +27,7 @@ public class Main {
         /*Guardian guardianRakoto = new Guardian("Guardian",rakoto);*/
         /*rakoto.setCategory(guardianRakoto);*/
         /*calendarWork.showMonth();*/
-        calendarWork.gaurdianSalaryAmount(rabe,rabeincreasedHour);
+        calendarWork.gaurdianSalaryAmount(rabe,rabeincreasedHour,rakotoSalary);
         }
     }
 
