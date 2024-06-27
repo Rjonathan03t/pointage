@@ -60,6 +60,21 @@ public class workingHourTest {
     }
 
     @Test
+    void SalaryOfRakotoSixMonth(){
+        List<LocalDate> sixMonths = new ArrayList<>();
+        List<LocalDate> holiday = new ArrayList<>();
+        List<LocalDate> normalEmployeeWorkMonth = new ArrayList<>();
+        Salary rakotoSalary = new Salary(100000);
+        IncreasedHour rabeincreasedHour = new IncreasedHour(false,false,false);
+        Employee rakoto = new Employee("Rakoto",2,"2003-08-07","2024-05-05","2027-05-05",rakotoSalary,rabeincreasedHour);
+        Guardian guardianRakoto = new Guardian("Guardian",rakoto,rabeincreasedHour,rakotoSalary);
+        rakoto.setCategory(guardianRakoto);
+        CalendarWork calendarWork = new CalendarWork(sixMonths,holiday,normalEmployeeWorkMonth);
+
+        assertEquals(159999.98199999984, calendarWork.guardianSalarySixWeek(rakoto,rabeincreasedHour,rakotoSalary),0.01);
+    }
+
+    @Test
     void SalaryOfRakoto() {
         List<LocalDate> june = new ArrayList<>();
         List<LocalDate> holiday = new ArrayList<>();
@@ -73,4 +88,6 @@ public class workingHourTest {
 
         assertEquals(100000,  calendarWork.gaurdianSalaryAmount(rakoto,rakotoIncreasedHour,rakotoSalary),0.01);
     }
+
+
 }

@@ -101,6 +101,17 @@ public class CalendarWork {
         return bonus;
     }
 
+    public double guardianSalarySixWeek(Employee employee, IncreasedHour increasedHour,Salary salary) {
+        double bonus = employee.salaryIfIncreasedHour(increasedHour,salary);
+        double normalSalary = salary.getGrossSalary();
+        completeSixWeek();
+        for (LocalDate date : month) {
+                normalSalary += 1428.571;
+        }
+        System.out.println(normalSalary);
+        return normalSalary;
+    }
+
     public boolean isWeekEnd(LocalDate day) {
         DayOfWeek dayOfWeek = day.getDayOfWeek();
         DayOfWeek saturday = DayOfWeek.SATURDAY;
