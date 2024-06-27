@@ -22,6 +22,23 @@ public class CalendarWork {
         this.week = new ArrayList<>();
     }
 
+    public List<LocalDate> completeSixWeek(){
+        LocalDate beginningOfTheMonth = LocalDate.of(2024, 5, 26);
+        LocalDate endOfTheMonth = LocalDate.of(2024,7,6);
+        for(LocalDate date = beginningOfTheMonth; !date.isAfter(endOfTheMonth);date = date.plusDays(1)){
+            if (!isWeekEnd(date)) {
+                normalEmployeeWorkMonth.add(date);
+                month.add(date);
+            } else if (isWeekEnd(date)) {
+                week.add(date);
+                month.add(date);
+            }
+            if (isHoliday(date)) {
+                publicHoliday.add(date);
+            }
+        }
+        return month;
+    }
     public List<LocalDate> completMonthOfJune() {
         LocalDate beginningOfTheMonth = LocalDate.of(2024, 6, 1);
         LocalDate endOfTheMonth = beginningOfTheMonth.withDayOfMonth(beginningOfTheMonth.lengthOfMonth());
@@ -47,6 +64,17 @@ public class CalendarWork {
         System.out.println("week in this month : " + week);
     }
 
+    public int calculateHourOfWorkSixWeek(Employee employee, IncreasedHour increasedHour) {
+        int totalHourMonth = 0;
+        int normalWorkHourPerDay = employee.getCategory().getNormalWorkingHour(increasedHour);
+        completeSixWeek();
+        for (LocalDate date : month) {
+            totalHourMonth += normalWorkHourPerDay;
+        }
+        System.out.println(totalHourMonth);
+        return totalHourMonth;
+    }
+
     public int calculateHourOfWorkOfGuardian(Employee employee, IncreasedHour increasedHour) {
         int totalHourMonth = 0;
         int normalWorkHourPerDay = employee.getCategory().getNormalWorkingHour(increasedHour);
@@ -54,7 +82,7 @@ public class CalendarWork {
         for (LocalDate date : month) {
             totalHourMonth += normalWorkHourPerDay;
         }
-
+        System.out.println(totalHourMonth);
         return totalHourMonth;
     }
 
