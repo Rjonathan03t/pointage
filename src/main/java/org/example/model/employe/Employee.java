@@ -32,34 +32,24 @@ public class Employee {
         this.increasedHour = increasedHour;
     }
 
-    public double salaryIfIncreasedHour(IncreasedHour increasedHour,Salary salaryAmount){
+    public double bonusSalary(IncreasedHour increasedHour){
         double bonus = 0;
-        double salary = salaryAmount.getGrossSalary();
         if(increasedHour.isNight() && !increasedHour.isSunday() && !increasedHour.isHoliday()){
-             bonus += 0.3;
-             salary += (salary*bonus);
+             bonus += 1.3;
         }else if (increasedHour.isSunday() && !increasedHour.isNight() && !increasedHour.isHoliday()){
-            bonus += 0.4;
-            salary += (salary*bonus);
+            bonus += 1.4;
         }else if(increasedHour.isHoliday() && !increasedHour.isNight()&& !increasedHour.isSunday()){
-            bonus += 0.5;
-            salary += (salary*bonus);
+            bonus += 1.5;
         }else if (increasedHour.isNight() && increasedHour.isSunday() && increasedHour.isHoliday()){
-            bonus += 1.2;
-            salary += (salary*bonus);
+            bonus += 4.2;
         }else if (increasedHour.isNight() && increasedHour.isSunday() && !increasedHour.isHoliday()){
-            bonus += 0.7;
-            salary += (salary*bonus);
+            bonus += 2.7;
         }else if (increasedHour.isNight() && !increasedHour.isSunday() && increasedHour.isHoliday()){
-            bonus += 0.8;
-            salary += (salary*bonus);
+            bonus += 2.8;
         }else if (!increasedHour.isNight() && increasedHour.isSunday() && increasedHour.isHoliday()){
-            bonus += 0.9;
-            salary += (salary*bonus);
-        }else{
-            return salary;
+            bonus += 2.9;
         }
-        return salary;
+        return bonus;
     }
 
     public Salary getSalaryAmount() {

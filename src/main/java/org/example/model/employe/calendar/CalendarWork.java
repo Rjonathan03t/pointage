@@ -22,10 +22,8 @@ public class CalendarWork {
         this.week = new ArrayList<>();
     }
 
-    public List<LocalDate> completeSixWeek() {
-        LocalDate beginningOfTheMonth = LocalDate.of(2024, 5, 26);
-        LocalDate endOfTheMonth = LocalDate.of(2024, 7, 6);
-        for (LocalDate date = beginningOfTheMonth; !date.isAfter(endOfTheMonth); date = date.plusDays(1)) {
+    public List<LocalDate> completeMonth(LocalDate beginning, LocalDate end) {
+        for (LocalDate date = beginning; !date.isAfter(end); date = date.plusDays(1)) {
             if (!isWeekEnd(date)) {
                 normalEmployeeWorkMonth.add(date);
                 month.add(date);
@@ -40,35 +38,17 @@ public class CalendarWork {
         return month;
     }
 
-    public List<LocalDate> completMonthOfJune() {
-        LocalDate beginningOfTheMonth = LocalDate.of(2024, 6, 1);
-        LocalDate endOfTheMonth = beginningOfTheMonth.withDayOfMonth(beginningOfTheMonth.lengthOfMonth());
-        for (LocalDate date = beginningOfTheMonth; !date.isAfter(endOfTheMonth); date = date.plusDays(1)) {
-            if (!isWeekEnd(date)) {
-                normalEmployeeWorkMonth.add(date);
-                month.add(date);
-            } else if (isWeekEnd(date)) {
-                week.add(date);
-                month.add(date);
-            }
-            if (isHoliday(date)) {
-                publicHoliday.add(date);
-            }
-        }
-        return month;
-    }
-
-    public void showMonth() {
-        completMonthOfJune();
+    public void showMonth(LocalDate beginning, LocalDate end) {
+        completeMonth(beginning, end);
         System.out.println("all month : " + month);
         System.out.println("holiday in this month : " + publicHoliday);
         System.out.println("week in this month : " + week);
     }
 
-    public int calculateHourOfWorkSixWeek(Employee employee, IncreasedHour increasedHour) {
+    public int calculateHourOfWork(Employee employee, IncreasedHour increasedHour, LocalDate beginning, LocalDate end) {
         int totalHourMonth = 0;
         int normalWorkHourPerDay = employee.getCategory().getNormalWorkingHour(increasedHour);
-        completeSixWeek();
+        completeMonth(beginning, end);
         for (LocalDate date : month) {
             totalHourMonth += normalWorkHourPerDay;
         }
@@ -76,49 +56,31 @@ public class CalendarWork {
         return totalHourMonth;
     }
 
-    public int calculateHourOfWorkOfGuardian(Employee employee, IncreasedHour increasedHour) {
-        int totalHourMonth = 0;
-        int normalWorkHourPerDay = employee.getCategory().getNormalWorkingHour(increasedHour);
-        completMonthOfJune();
-        for (LocalDate date : month) {
-            totalHourMonth += normalWorkHourPerDay;
-        }
-        System.out.println(totalHourMonth);
-        return totalHourMonth;
-    }
-
-    public double gaurdianSalaryAmount(Employee employee, IncreasedHour increasedHour, Salary salary) {
-        int totalHour = calculateHourOfWorkOfGuardian(employee, increasedHour);
+    public double guardianSalary(Employee employee, IncreasedHour increasedHour, Salary salary, LocalDate beginning, LocalDate end) {
+        double bonus = employee.bonusSalary(increasedHour);
         double normalSalary = salary.getGrossSalary();
-        double bonus = employee.salaryIfIncreasedHour(increasedHour, salary);
-        if (totalHour == 300) {
-            System.out.println(normalSalary);
-            return normalSalary;
-        } else if (totalHour > 300) {
-            System.out.println(bonus);
-            return bonus;
-        }
-        System.out.println(bonus);
-        return bonus;
-    }
-
-    public double guardianSalarySixWeek(Employee employee, IncreasedHour increasedHour, Salary salary) {
-        double salaryBonus = employee.salaryIfIncreasedHour(increasedHour, salary);
-        double normalSalary = salary.getGrossSalary();
-        double bonus = salaryBonus / 100000;
         double s = 0;
-        double sWithBonus = 0;
-        completeSixWeek();
+        double totalSalary = 0;
+        double dailySalary = normalSalary / 7;
+        double extraHourDay = 0;
+        completeMonth(beginning, end);
+        List<LocalDate> extraHours = new ArrayList<>();
         for (LocalDate date : month) {
-            s += normalSalary/7;
+            if(isHoliday(date)){
+                extraHours.add(date);
+            }else
+            s += dailySalary;
         }
-        if(bonus>0){
-            sWithBonus += s * bonus;
-            System.out.println(sWithBonus);
-            return sWithBonus;
-        }else
-        System.out.println(s);
-        return s;
+        for(LocalDate extraHour : extraHours){
+            extraHourDay += (dailySalary * bonus);
+        }
+        if (bonus > 0) {
+            totalSalary += extraHourDay + s;
+            System.out.println(totalSalary);
+            return totalSalary;
+        } else
+            System.out.println(totalSalary);
+        return totalSalary;
     }
 
     public boolean isWeekEnd(LocalDate day) {
@@ -132,11 +94,7 @@ public class CalendarWork {
     }
 
     public boolean isHoliday(LocalDate date) {
-        if (
-                date.equals(LocalDate.of(2024, 6, 17)) ||
-                        date.equals(LocalDate.of(2024, 6, 25)) ||
-                        date.equals(LocalDate.of(2024, 6, 26)
-                        )) {
+        if (date.equals(LocalDate.of(2024, 6, 26))) {
             return true;
         }
         return false;
