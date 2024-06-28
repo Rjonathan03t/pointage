@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -16,6 +17,9 @@ import static org.junit.Assert.assertEquals;
 public class RabeTest {
     @Test
     void workingHourRabe() {
+        List<LocalDate> holidays = Arrays.asList(
+                LocalDate.of(2024, 6, 26)
+        );
         List<LocalDate> sixWeek = new ArrayList<>();
         List<LocalDate> holiday = new ArrayList<>();
         LocalDate beginning = LocalDate.of(2024, 5, 26);
@@ -28,11 +32,15 @@ public class RabeTest {
         rabe.setCategory(guardianRabe);
         CalendarWork calendarWork = new CalendarWork(sixWeek, holiday, normalEmployeeWorkMonth);
 
-        assertEquals(588, calendarWork.calculateHourOfWork(rabe, rabeincreasedHour,beginning,end));
+        assertEquals(588, calendarWork.calculateHourOfWork(rabe, rabeincreasedHour,beginning,end,holidays));
     }
 
     @Test
     void grossSalaryOfRabeWithoutSunday() {
+        double bonusRate = 1.5;
+        List<LocalDate> holidays = Arrays.asList(
+                LocalDate.of(2024, 6, 26)
+        );
         List<LocalDate> sixMonths = new ArrayList<>();
         List<LocalDate> holiday = new ArrayList<>();
         LocalDate beginning = LocalDate.of(2024, 5, 27);
@@ -45,11 +53,15 @@ public class RabeTest {
         rabe.setCategory(guardianRakoto);
         CalendarWork calendarWork = new CalendarWork(sixMonths, holiday, normalEmployeeWorkMonth);
 
-        assertEquals(770714.2857142853, calendarWork.guardianSalary(rabe, rabeIncreasedHour, rabeSalary,beginning,end), 0.01);
+        assertEquals(770714.2857142853, calendarWork.guardianSalary(rabe, rabeIncreasedHour, rabeSalary,beginning,end,holidays,bonusRate), 0.01);
     }
 
     @Test
     void netSalaryOfRabeWithoutSunday() {
+        double bonusRate = 1.5;
+        List<LocalDate> holidays = Arrays.asList(
+                LocalDate.of(2024, 6, 26)
+        );
         List<LocalDate> sixMonths = new ArrayList<>();
         List<LocalDate> holiday = new ArrayList<>();
         LocalDate beginning = LocalDate.of(2024, 5, 27);
@@ -62,11 +74,15 @@ public class RabeTest {
         rabe.setCategory(guardianRakoto);
         CalendarWork calendarWork = new CalendarWork(sixMonths, holiday, normalEmployeeWorkMonth);
 
-        assertEquals(616571.4285714283, calendarWork.netSalaryCalculation(rabe, rabeIncreasedHour, rabeSalary,beginning,end), 0.01);
+        assertEquals(616571.4285714283, calendarWork.netSalaryCalculation(rabe, rabeIncreasedHour, rabeSalary,beginning,end,holidays,bonusRate), 0.01);
     }
 
     @Test
     void grossSalaryOfRabeWithSunday() {
+        double bonusRate = 1.5;
+        List<LocalDate> holidays = Arrays.asList(
+                LocalDate.of(2024, 6, 26)
+        );
         List<LocalDate> sixMonths = new ArrayList<>();
         List<LocalDate> holiday = new ArrayList<>();
         LocalDate beginning = LocalDate.of(2024, 5, 27);
@@ -79,7 +95,30 @@ public class RabeTest {
         rabe.setCategory(guardianRakoto);
         CalendarWork calendarWork = new CalendarWork(sixMonths, holiday, normalEmployeeWorkMonth);
 
-        assertEquals(1600714.285714286, calendarWork.guardianSalary(rabe, rabeIncreasedHour, rabeSalary,beginning,end), 0.01);
+        assertEquals(1600714.285714286, calendarWork.guardianSalary(rabe, rabeIncreasedHour, rabeSalary,beginning,end,holidays,bonusRate), 0.01);
+    }
+
+    @Test
+    void grossSalaryOfRabeWithAllHoliday() {
+        double bonusRate = 1.3;
+        List<LocalDate> holidays = Arrays.asList(
+                LocalDate.of(2024, 6, 17),
+                LocalDate.of(2024,6,25),
+                LocalDate.of(2024,6,26)
+        );
+        List<LocalDate> sixMonths = new ArrayList<>();
+        List<LocalDate> holiday = new ArrayList<>();
+        LocalDate beginning = LocalDate.of(2024, 5, 26);
+        LocalDate end = LocalDate.of(2024, 7, 6);
+        List<LocalDate> normalEmployeeWorkMonth = new ArrayList<>();
+        Salary rabeSalary = new Salary(100000);
+        IncreasedHour rabeIncreasedHour = new IncreasedHour(true, false);
+        Employee rabe = new Employee("Rabe", 2, "2003-08-07", "2024-05-05", "2027-05-05", rabeSalary, rabeIncreasedHour);
+        Guardian guardianRakoto = new Guardian("Guardian", rabe, rabeIncreasedHour, rabeSalary);
+        rabe.setCategory(guardianRakoto);
+        CalendarWork calendarWork = new CalendarWork(sixMonths, holiday, normalEmployeeWorkMonth);
+
+        assertEquals(796714.2857142854, calendarWork.guardianSalary(rabe, rabeIncreasedHour, rabeSalary,beginning,end,holidays,bonusRate), 0.01);
     }
 
 }

@@ -22,7 +22,7 @@ public class CalendarWork {
         this.week = new ArrayList<>();
     }
 
-    public List<LocalDate> completeMonth(LocalDate beginning, LocalDate end) {
+    public List<LocalDate> completeMonth(LocalDate beginning, LocalDate end,List<LocalDate> holidays) {
         for (LocalDate date = beginning; !date.isAfter(end); date = date.plusDays(1)) {
             if (!isWeekEnd(date)) {
                 normalEmployeeWorkMonth.add(date);
@@ -31,31 +31,31 @@ public class CalendarWork {
                 week.add(date);
                 month.add(date);
             }
-            if (isHoliday(date)) {
+            if (isHoliday(date,holidays)) {
                 publicHoliday.add(date);
             }
         }
         return month;
     }
 
-    public void showMonth(LocalDate beginning, LocalDate end) {
-        completeMonth(beginning, end);
+    public void showMonth(LocalDate beginning, LocalDate end,List<LocalDate> holidays) {
+        completeMonth(beginning, end,holidays);
         System.out.println("all month : " + month);
         System.out.println("holiday in this month : " + publicHoliday);
         System.out.println("week in this month : " + week);
     }
 
-    public int calculateHourOfWork(Employee employee, IncreasedHour increasedHour, LocalDate beginning, LocalDate end) {
+    public int calculateHourOfWork(Employee employee, IncreasedHour increasedHour, LocalDate beginning, LocalDate end,List<LocalDate> holidays) {
         int totalHourMonth = 0;
         int normalWorkHourPerDay = employee.getCategory().getNormalWorkingHour(increasedHour);
-        completeMonth(beginning, end);
+        completeMonth(beginning, end,holidays);
         for (LocalDate date : month) {
             totalHourMonth += normalWorkHourPerDay;
         }
         return totalHourMonth;
     }
 
-    public double guardianSalary(Employee employee, IncreasedHour increasedHour, Salary salary, LocalDate beginning, LocalDate end) {
+    public double guardianSalary(Employee employee, IncreasedHour increasedHour, Salary salary, LocalDate beginning, LocalDate end,List<LocalDate> holidays, double bonusRate) {
         double bonus = employee.bonusSalary(increasedHour);
         double normalSalary = salary.getGrossSalary();
         double monthlySalary = 0;
@@ -63,7 +63,8 @@ public class CalendarWork {
         double extraHourDay = 0;
         double dailySalary = 0;
         double bonusHoliday = 0;
-        completeMonth(beginning, end);
+        double countHoliday = 0;
+        completeMonth(beginning, end,holidays);
         List<LocalDate> extraHours = new ArrayList<>();
         if (bonus != 0) {
             normalSalary = normalSalary * bonus;
@@ -72,21 +73,23 @@ public class CalendarWork {
             dailySalary = normalSalary / 7;
         }
         for (LocalDate date : month) {
-            if (isHoliday(date)) {
+            if (isHoliday(date,holidays)) {
                 extraHours.add(date);
-                bonusHoliday = 1.5;
-            }else
+                bonusHoliday = bonusRate;
+                countHoliday++;
+            } else
                 monthlySalary += dailySalary;
         }
         for (LocalDate extraHour : extraHours) {
-            extraHourDay = (dailySalary * bonusHoliday);
+            extraHourDay = (countHoliday * dailySalary * bonusHoliday);
         }
         totalSalary = extraHourDay + monthlySalary;
+        System.out.println(monthlySalary);
         return totalSalary;
     }
 
-    public double netSalaryCalculation(Employee employee, IncreasedHour increasedHour, Salary salary, LocalDate beginning, LocalDate end) {
-        double netSalary = guardianSalary(employee, increasedHour, salary, beginning, end);
+    public double netSalaryCalculation(Employee employee, IncreasedHour increasedHour, Salary salary, LocalDate beginning, LocalDate end,List<LocalDate> holidays, double bonusRate) {
+        double netSalary = guardianSalary(employee, increasedHour, salary, beginning, end,holidays,bonusRate);
         return netSalary * 0.8;
     }
 
@@ -100,10 +103,7 @@ public class CalendarWork {
         return false;
     }
 
-    public boolean isHoliday(LocalDate date) {
-        if (date.equals(LocalDate.of(2024, 6, 26))) {
-            return true;
-        }
-        return false;
+    public boolean isHoliday(LocalDate date, List<LocalDate> holidays) {
+        return holidays.contains(date);
     }
 }
