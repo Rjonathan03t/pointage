@@ -64,4 +64,22 @@ public class RabeTest {
 
         assertEquals(616571.4285714283, calendarWork.netSalaryCalculation(rabe, rabeIncreasedHour, rabeSalary,beginning,end), 0.01);
     }
+
+    @Test
+    void grossSalaryOfRabeWithSunday() {
+        List<LocalDate> sixMonths = new ArrayList<>();
+        List<LocalDate> holiday = new ArrayList<>();
+        LocalDate beginning = LocalDate.of(2024, 5, 27);
+        LocalDate end = LocalDate.of(2024, 7, 6);
+        List<LocalDate> normalEmployeeWorkMonth = new ArrayList<>();
+        Salary rabeSalary = new Salary(100000);
+        IncreasedHour rabeIncreasedHour = new IncreasedHour(true, true);
+        Employee rabe = new Employee("Rabe", 2, "2003-08-07", "2024-05-05", "2027-05-05", rabeSalary, rabeIncreasedHour);
+        Guardian guardianRakoto = new Guardian("Guardian", rabe, rabeIncreasedHour, rabeSalary);
+        rabe.setCategory(guardianRakoto);
+        CalendarWork calendarWork = new CalendarWork(sixMonths, holiday, normalEmployeeWorkMonth);
+
+        assertEquals(1600714.285714286, calendarWork.guardianSalary(rabe, rabeIncreasedHour, rabeSalary,beginning,end), 0.01);
+    }
+
 }
