@@ -84,7 +84,6 @@ public class CalendarWork {
             extraHourDay = (countHoliday * dailySalary * bonusHoliday);
         }
         totalSalary = extraHourDay + monthlySalary;
-        System.out.println(monthlySalary);
         return totalSalary;
     }
 
