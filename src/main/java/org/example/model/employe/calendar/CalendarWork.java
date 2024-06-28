@@ -58,7 +58,7 @@ public class CalendarWork {
     public double guardianSalary(Employee employee, IncreasedHour increasedHour, Salary salary, LocalDate beginning, LocalDate end) {
         double bonus = employee.bonusSalary(increasedHour);
         double normalSalary = salary.getGrossSalary();
-        double s = 0;
+        double monthlySalary = 0;
         double totalSalary = 0;
         double extraHourDay = 0;
         double dailySalary = 0;
@@ -76,12 +76,12 @@ public class CalendarWork {
                 extraHours.add(date);
                 bonusHoliday = 1.5;
             }else
-                s += dailySalary;
+                monthlySalary += dailySalary;
         }
         for (LocalDate extraHour : extraHours) {
             extraHourDay = (dailySalary * bonusHoliday);
         }
-        totalSalary = extraHourDay + s;
+        totalSalary = extraHourDay + monthlySalary;
         return totalSalary;
     }
 

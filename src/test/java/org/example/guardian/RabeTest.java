@@ -22,7 +22,7 @@ public class RabeTest {
         LocalDate end = LocalDate.of(2024, 7, 6);
         List<LocalDate> normalEmployeeWorkMonth = new ArrayList<>();
         Salary rabeSalary = new Salary(100000);
-        IncreasedHour rabeincreasedHour = new IncreasedHour(true, false);
+        IncreasedHour rabeincreasedHour = new IncreasedHour(true, true);
         Employee rabe = new Employee("Rabe", 2, "2003-08-07", "2024-05-05", "2027-05-05", rabeSalary, rabeincreasedHour);
         Guardian guardianRabe = new Guardian("Guardian", rabe, rabeincreasedHour, rabeSalary);
         rabe.setCategory(guardianRabe);
