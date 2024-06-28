@@ -1,4 +1,4 @@
-package org.example;
+package org.example.guardian;
 
 import org.example.model.employe.Employee;
 import org.example.model.employe.calendar.CalendarWork;
@@ -22,7 +22,7 @@ public class RakotoTest {
         LocalDate beginning = LocalDate.of(2024, 5, 26);
         LocalDate end = LocalDate.of(2024, 7, 6);
         Salary rakotoSalary = new Salary(100000);
-        IncreasedHour rabeincreasedHour = new IncreasedHour(false, false, false);
+        IncreasedHour rabeincreasedHour = new IncreasedHour(false, false);
         Employee rakoto = new Employee("Rakoto", 2, "2003-08-07", "2024-05-05", "2027-05-05", rakotoSalary, rabeincreasedHour);
         Guardian guardianRakoto = new Guardian("Guardian", rakoto, rabeincreasedHour, rakotoSalary);
         rakoto.setCategory(guardianRakoto);
@@ -32,14 +32,14 @@ public class RakotoTest {
     }
 
     @Test
-    void salaryOfRakotoWithSunday() {
+    void grossSalaryOfRakotoWithoutSunday() {
         List<LocalDate> sixMonths = new ArrayList<>();
         List<LocalDate> holiday = new ArrayList<>();
         LocalDate beginning = LocalDate.of(2024, 5, 26);
         LocalDate end = LocalDate.of(2024, 7, 6);
         List<LocalDate> normalEmployeeWorkMonth = new ArrayList<>();
         Salary rakotoSalary = new Salary(100000);
-        IncreasedHour rakotoIncreasedHour = new IncreasedHour(false, false, true );
+        IncreasedHour rakotoIncreasedHour = new IncreasedHour(false, false );
         Employee rakoto = new Employee("Rakoto", 2, "2003-08-07", "2024-05-05", "2027-05-05", rakotoSalary, rakotoIncreasedHour);
         Guardian guardianRakoto = new Guardian("Guardian", rakoto, rakotoIncreasedHour, rakotoSalary);
         rakoto.setCategory(guardianRakoto);
@@ -49,36 +49,19 @@ public class RakotoTest {
     }
 
     @Test
-    void workingHourRabe() {
-        List<LocalDate> sixWeek = new ArrayList<>();
-        List<LocalDate> holiday = new ArrayList<>();
-        LocalDate beginning = LocalDate.of(2024, 5, 26);
-        LocalDate end = LocalDate.of(2024, 7, 6);
-        List<LocalDate> normalEmployeeWorkMonth = new ArrayList<>();
-        Salary rabeSalary = new Salary(100000);
-        IncreasedHour rabeincreasedHour = new IncreasedHour(true, false, false);
-        Employee rabe = new Employee("Rabe", 2, "2003-08-07", "2024-05-05", "2027-05-05", rabeSalary, rabeincreasedHour);
-        Guardian guardianRabe = new Guardian("Guardian", rabe, rabeincreasedHour, rabeSalary);
-        rabe.setCategory(guardianRabe);
-        CalendarWork calendarWork = new CalendarWork(sixWeek, holiday, normalEmployeeWorkMonth);
-
-        assertEquals(588, calendarWork.calculateHourOfWork(rabe, rabeincreasedHour,beginning,end));
-    }
-
-    @Test
-    void salaryOfrabeSixMonth() {
+    void netSalaryOfRakotoWithoutSunday() {
         List<LocalDate> sixMonths = new ArrayList<>();
         List<LocalDate> holiday = new ArrayList<>();
         LocalDate beginning = LocalDate.of(2024, 5, 26);
         LocalDate end = LocalDate.of(2024, 7, 6);
         List<LocalDate> normalEmployeeWorkMonth = new ArrayList<>();
-        Salary rabeSalary = new Salary(100000);
-        IncreasedHour rabeIncreasedHour = new IncreasedHour(true, false, false);
-        Employee rabe = new Employee("Rabe", 2, "2003-08-07", "2024-05-05", "2027-05-05", rabeSalary, rabeIncreasedHour);
-        Guardian guardianRakoto = new Guardian("Guardian", rabe, rabeIncreasedHour, rabeSalary);
-        rabe.setCategory(guardianRakoto);
+        Salary rakotoSalary = new Salary(100000);
+        IncreasedHour rakotoIncreasedHour = new IncreasedHour(false, false );
+        Employee rakoto = new Employee("Rakoto", 2, "2003-08-07", "2024-05-05", "2027-05-05", rakotoSalary, rakotoIncreasedHour);
+        Guardian guardianRakoto = new Guardian("Guardian", rakoto, rakotoIncreasedHour, rakotoSalary);
+        rakoto.setCategory(guardianRakoto);
         CalendarWork calendarWork = new CalendarWork(sixMonths, holiday, normalEmployeeWorkMonth);
 
-        assertEquals(779999.9999999998, calendarWork.guardianSalary(rabe, rabeIncreasedHour, rabeSalary,beginning,end), 0.01);
+        assertEquals(485714.28571428556, calendarWork.netSalaryCalculation(rakoto, rakotoIncreasedHour, rakotoSalary,beginning,end), 0.01);
     }
 }

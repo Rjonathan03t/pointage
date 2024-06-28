@@ -34,20 +34,12 @@ public class Employee {
 
     public double bonusSalary(IncreasedHour increasedHour){
         double bonus = 0;
-        if(increasedHour.isNight() && !increasedHour.isSunday() && !increasedHour.isHoliday()){
+        if(increasedHour.isNight() && !increasedHour.isSunday()  ){
              bonus += 1.3;
-        }else if (increasedHour.isSunday() && !increasedHour.isNight() && !increasedHour.isHoliday()){
+        }else if (increasedHour.isSunday() && !increasedHour.isNight() ){
             bonus += 1.4;
-        }else if(increasedHour.isHoliday() && !increasedHour.isNight()&& !increasedHour.isSunday()){
-            bonus += 1.5;
-        }else if (increasedHour.isNight() && increasedHour.isSunday() && increasedHour.isHoliday()){
-            bonus += 4.2;
-        }else if (increasedHour.isNight() && increasedHour.isSunday() && !increasedHour.isHoliday()){
+        }else if (increasedHour.isNight() && increasedHour.isSunday()){
             bonus += 2.7;
-        }else if (increasedHour.isNight() && !increasedHour.isSunday() && increasedHour.isHoliday()){
-            bonus += 2.8;
-        }else if (!increasedHour.isNight() && increasedHour.isSunday() && increasedHour.isHoliday()){
-            bonus += 2.9;
         }
         return bonus;
     }

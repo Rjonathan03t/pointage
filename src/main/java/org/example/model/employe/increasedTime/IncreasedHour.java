@@ -3,12 +3,12 @@ package org.example.model.employe.increasedTime;
 public class IncreasedHour {
     private boolean night;
     private boolean sunday;
-    private boolean holiday;
 
-    public IncreasedHour(boolean night, boolean sunday, boolean holiday) {
+
+    public IncreasedHour(boolean night, boolean sunday) {
         this.night = night;
         this.sunday = sunday;
-        this.holiday = holiday;
+
     }
 
     public boolean isNight() {
@@ -17,9 +17,5 @@ public class IncreasedHour {
 
     public boolean isSunday() {
         return sunday;
-    }
-
-    public boolean isHoliday() {
-        return holiday;
     }
 }

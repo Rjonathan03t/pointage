@@ -52,7 +52,6 @@ public class CalendarWork {
         for (LocalDate date : month) {
             totalHourMonth += normalWorkHourPerDay;
         }
-        System.out.println(totalHourMonth);
         return totalHourMonth;
     }
 
@@ -61,26 +60,34 @@ public class CalendarWork {
         double normalSalary = salary.getGrossSalary();
         double s = 0;
         double totalSalary = 0;
-        double dailySalary = normalSalary / 7;
         double extraHourDay = 0;
+        double dailySalary = 0;
+        double bonusHoliday = 0;
         completeMonth(beginning, end);
         List<LocalDate> extraHours = new ArrayList<>();
+        if (bonus != 0) {
+            normalSalary = normalSalary * bonus;
+            dailySalary += normalSalary / 7;
+        } else {
+            dailySalary = normalSalary / 7;
+        }
         for (LocalDate date : month) {
-            if(isHoliday(date)){
+            if (isHoliday(date)) {
                 extraHours.add(date);
+                bonusHoliday = 1.5;
             }else
-            s += dailySalary;
+                s += dailySalary;
         }
-        for(LocalDate extraHour : extraHours){
-            extraHourDay += (dailySalary * bonus);
+        for (LocalDate extraHour : extraHours) {
+            extraHourDay = (dailySalary * bonusHoliday);
         }
-        if (bonus > 0) {
-            totalSalary += extraHourDay + s;
-            System.out.println(totalSalary);
-            return totalSalary;
-        } else
-            System.out.println(totalSalary);
+        totalSalary = extraHourDay + s;
         return totalSalary;
+    }
+
+    public double netSalaryCalculation(Employee employee, IncreasedHour increasedHour, Salary salary, LocalDate beginning, LocalDate end) {
+        double netSalary = guardianSalary(employee, increasedHour, salary, beginning, end);
+        return netSalary * 0.8;
     }
 
     public boolean isWeekEnd(LocalDate day) {
